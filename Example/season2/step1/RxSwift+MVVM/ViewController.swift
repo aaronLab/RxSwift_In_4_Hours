@@ -30,6 +30,8 @@ class ViewController: UIViewController {
     @IBOutlet var timerLabel: UILabel!
     @IBOutlet var editView: UITextView!
     
+    private let bag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
@@ -46,18 +48,20 @@ class ViewController: UIViewController {
         })
     }
     
-    func downloadJson(_ url: String) -> MyObservable<String?> {
+    func downloadJson(_ url: String) -> Observable<String?> {
         
-        return MyObservable { f in
+        return Observable.create { f in
             
             DispatchQueue.global().async {
                 let url = URL(string: url)!
                 let data = try! Data(contentsOf: url)
                 let json = String(data: data, encoding: .utf8)
                 DispatchQueue.main.async {
-                    f(json)
+                    f.onNext(json)
                 }
             }
+            
+            return Disposables.create()
             
         }
         
@@ -71,12 +75,20 @@ class ViewController: UIViewController {
         editView.text = ""
         self.setVisibleWithAnimation(self.activityIndicator, true)
         
-        let json: MyObservable<String?> = downloadJson(MEMBER_LIST_URL)
-        
-        json.subscribe { json in
-            self.editView.text = json
-            self.setVisibleWithAnimation(self.activityIndicator, false)
-        }
+        downloadJson(MEMBER_LIST_URL)
+            .subscribe { e in
+                switch e {
+                case .next(let json):
+                    self.editView.text = json
+                    self.setVisibleWithAnimation(self.activityIndicator, false)
+                case .completed:
+                    break
+                case .error(let e):
+                    print(e)
+                }
+                
+            }
+            .disposed(by: bag)
         
     }
 }
