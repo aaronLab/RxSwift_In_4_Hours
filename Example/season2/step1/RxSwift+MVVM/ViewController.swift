@@ -50,19 +50,33 @@ class ViewController: UIViewController {
     
     func downloadJson(_ url: String) -> Observable<String?> {
         
-        return Observable.create { f in
+        return Observable.create { emitter in
             
-            DispatchQueue.global().async {
-                let url = URL(string: url)!
-                let data = try! Data(contentsOf: url)
-                let json = String(data: data, encoding: .utf8)
-                DispatchQueue.main.async {
-                    f.onNext(json)
+            let url = URL(string: url)!
+            
+            let task = URLSession.shared.dataTask(with: url) { data, _, err in
+                
+                guard err == nil else {
+                    emitter.onError(err!)
+                    return
                 }
+                
+                if let data = data,
+                   let json = String(data: data, encoding: .utf8) {
+                    
+                    emitter.onNext(json)
+                    
+                }
+                
+                emitter.onCompleted()
+                
             }
             
-            return Disposables.create()
+            task.resume()
             
+            return Disposables.create() {
+                task.cancel()
+            }
         }
         
     }
@@ -76,14 +90,16 @@ class ViewController: UIViewController {
         self.setVisibleWithAnimation(self.activityIndicator, true)
         
         downloadJson(MEMBER_LIST_URL)
-            .subscribe {[weak self] e in
-                
-                guard let self = self else { return }
+            .subscribe { e in
                 
                 switch e {
                 case .next(let json):
-                    self.editView.text = json
-                    self.setVisibleWithAnimation(self.activityIndicator, false)
+                    DispatchQueue.main.async { [weak self] in
+                        
+                        self?.editView.text = json
+                        self?.setVisibleWithAnimation(self?.activityIndicator, false)
+                        
+                    }
                 case .completed:
                     break
                 case .error(let e):
