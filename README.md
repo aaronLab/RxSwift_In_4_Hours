@@ -1,4 +1,7 @@
+[inspired by iamchiwon/RxSwift_In_4_Hours](https://github.com/iamchiwon/RxSwift_In_4_Hours)
+
 # RxSwift+MVVM 4시간에 끝내기
+
 > RxSwift 4시간에 끝내기 (시즌2)
 
 ![](docs/rxswift_in_4_hours_logo_s2.png)
@@ -9,11 +12,11 @@
 
 요즘 관심이 높은 RxSwift!
 
-[RxSwift](https://github.com/ReactiveX/RxSwift)는 Swift에 [ReactiveX](http://reactivex.io/)를 적용시켜 비동기 프로그래밍을 직관적으로 작성할 수 있도록 도와주는 **라이브러리**입니다. 
+[RxSwift](https://github.com/ReactiveX/RxSwift)는 Swift에 [ReactiveX](http://reactivex.io/)를 적용시켜 비동기 프로그래밍을 직관적으로 작성할 수 있도록 도와주는 **라이브러리**입니다.
 
 즉, RxSwift는 도구입니다. 하지만 높은 러닝커브에 쉽게 접근하지 못하는 분이 많습니다.<br/>
 도구를 이용하려고 배우고 노력하는 시간이 너무 큰 것은 배보다 배꼽이 더 큰 격입니다.<br/>
-RxSwift의 근본적인 학습 자체보다는, 빠르게 사용법을 익혀 프로젝트에 적용하는 것이 *현실주의 프로그래머들에게는* 더 중요합니다.
+RxSwift의 근본적인 학습 자체보다는, 빠르게 사용법을 익혀 프로젝트에 적용하는 것이 _현실주의 프로그래머들에게는_ 더 중요합니다.
 
 <br/>
 <hr/>
@@ -45,6 +48,7 @@ RxSwift의 근본적인 학습 자체보다는, 빠르게 사용법을 익혀 �
 ### [2교시] RxSwift 활용하기 - 쓰레드의 활용과 메모리 관리
 
 3. Observable Life-Cycle
+
    - Subscribed
    - Next
    - Completed / Error
@@ -53,8 +57,8 @@ RxSwift의 근본적인 학습 자체보다는, 빠르게 사용법을 익혀 �
 4. 순환참조와 메모리 관리
    - Unfinished Observable / Memory Leak
    - (참조) [클로져와 메모리 해제 실험](https://iamchiwon.github.io/2018/08/13/closure-mem/)
-	
 5. 쓰레드 분기
+
    - DispatchQueue, OperationQueue
    - `observeOn`, `subscribeOn`
 
@@ -68,6 +72,7 @@ RxSwift의 근본적인 학습 자체보다는, 빠르게 사용법을 익혀 �
 ### [3교시] RxSwift 활용범위 넓히기 - UI 컴포넌트와의 연동
 
 1. Subject
+
    - Data Control
    - Hot Observable / Cold Observable
 
@@ -82,15 +87,16 @@ RxSwift의 근본적인 학습 자체보다는, 빠르게 사용법을 익혀 �
 ### [4교시] RxSwift 를 활용한 아키텍쳐 - 프로젝트에 MVVM 적용하기
 
 1. MVVM 아키텍쳐
-	- 어플리케이션 아키텍쳐<br/>
-    ![architectures](docs/mvc_mvp_mvvm.jpeg)<br/>
-        크게보기([MVC](docs/mvc.jpeg), [MVP](docs/mvp.jpeg), [MVVM](docs/mvvm.jpeg))
-	- 왜 MVVM을 쓰는가?
-	- MVVM과 RxSwift의 꿀조합
+
+   - 어플리케이션 아키텍쳐<br/>
+     ![architectures](docs/mvc_mvp_mvvm.jpeg)<br/>
+     크게보기([MVC](docs/mvc.jpeg), [MVP](docs/mvp.jpeg), [MVVM](docs/mvvm.jpeg))
+   - 왜 MVVM을 쓰는가?
+   - MVVM과 RxSwift의 꿀조합
 
 2. Refactoring to MVVM
 3. MVVM-C
-	- [Example](https://github.com/uptechteam/Coordinator-MVVM-Rx-Example)
+   - [Example](https://github.com/uptechteam/Coordinator-MVVM-Rx-Example)
 
 <br/>
 <hr/>
