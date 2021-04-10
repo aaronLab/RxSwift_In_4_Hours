@@ -76,7 +76,10 @@ class ViewController: UIViewController {
         self.setVisibleWithAnimation(self.activityIndicator, true)
         
         downloadJson(MEMBER_LIST_URL)
-            .subscribe { e in
+            .subscribe {[weak self] e in
+                
+                guard let self = self else { return }
+                
                 switch e {
                 case .next(let json):
                     self.editView.text = json
